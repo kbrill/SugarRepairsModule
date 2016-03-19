@@ -863,19 +863,10 @@ abstract class supp_Repairs
                 }
                 $this->listCache[$listNames] = array_unique(array_merge($this->listCache[$listNames], array_keys($keys)));
             }
-
-            if (!is_null($app_list_strings) && isset($app_list_strings[$listName])) {
-                $foundList = true;
-                if(!is_array($app_list_strings[$listName])) {
-                    $app_list_strings[$listName]=array($app_list_strings[$listName]=>$app_list_strings[$listName]);
-                }
-                $list = array_keys($app_list_strings[$listName]);
-                $finalList = array_merge($finalList, $list);
-            }
         }
 
-        if ($foundList) {
-            return array_unique($finalList);
+        if (isset($this->listCache[$listName])) {
+            return $this->listCache[$listName];
         } else {
             $this->log("-> The list '{$listName}' was not found.");
             return false;
